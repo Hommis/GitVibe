@@ -39,6 +39,7 @@ public class GitRepository : Repository, IDisposable
 
   private IEnumerable<GitLogEntry> ParseCommitsForGraph(IEnumerable<GitLogEntry> commits)
   {
+    var branchIdGenerator = 0 ;
     var returnArray = new List<GitLogEntry>();;
     var oldToNew = commits.OrderBy( commit => commit.CommitDate );
     // Create a lookup table for the commits
@@ -48,22 +49,34 @@ public class GitRepository : Repository, IDisposable
     }
     var branches = new Dictionary<string, BranchInfo>();
     foreach( var commit in oldToNew ) {
+
       // Resetting all branches to not new.
-      foreach(var branchKey in branches.Keys ) {
-        var parentMatchers =  branchKey == commit.ParentHash; 
-        branches[ branchKey] = new BranchInfo(false, false, parentMatchers, false);
+      foreach(var branchKey in branches.Keys.ToArray() ) {
+        var parentMatches =  commit.Parents.Any( parentHash => parentHash == branchKey) ; 
+        branches[ branchKey] = new BranchInfo( branches[ branchKey].Id, false, false, parentMatches, false, branches[ branchKey].IsMered);
       }
-      if( commit.ParentHash != null  && branches.ContainsKey(commit.ParentHash) ) {
+      var isMerged = false;
+      var missingParent = true;
+      foreach( var parentHash in commit.Parents ) {
+        if( branches.ContainsKey(parentHash) ) {
+          // If we can find the parent branch, we need to update it
+          var parentBranch = branches[parentHash];
+          missingParent = !lookUpTable.ContainsKey( parentHash);
+          branches.Remove( parentHash);
+          if( !isMerged) branches.Add(commit.Hash, new BranchInfo(parentBranch.Id, true, false, true, missingParent, isMerged ));
+          isMerged = true;
+        } else {
+
+        branches.Add(commit.Hash, new BranchInfo(branchIdGenerator++, true, false, true, missingParent, false));
+        }
+      }
+      if( commit.Parents.Length > 0  && branches.ContainsKey(commit.ParentHash) ) {
         // If we can find the parent branch, we need to update it
         var parentBranch = branches[commit.ParentHash];
         branches.Remove( commit.ParentHash);
-        branches.Add( commit.Hash, new BranchInfo(false, false, false, false) );
+        branches.Add( commit.Hash, new BranchInfo(parentBranch.Id, false, false, false, false) );
       }
-      else {
-        // If we can't find the parent branch, we need to create a new branch
-        var missingParent =  commit.ParentHash != null && !lookUpTable.ContainsKey( commit.ParentHash);
-        branches.Add(commit.Hash, new BranchInfo(true, false, true, missingParent));
-      }
+
 
       commit.Branches = branches.Values.ToImmutableArray();
       returnArray.Add(commit);

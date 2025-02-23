@@ -79,6 +79,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Commit" Binding="{Binding ShortHash}" />
                 <DataGridTextColumn Header="Parent" Binding="{Binding ParentShortHash}" />
+                <DataGridTextColumn Header="Is merge" Binding="{Binding IsMerge}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

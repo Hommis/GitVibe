@@ -28,10 +28,24 @@ public class GitRepository : Repository
   {
     using (var repo = new LibGit2Sharp.Repository(base.Path))
     { 
-      foreach (var commit in repo.Commits)
-      {
-        yield return new GitLogEntry(commit);;
+      var allCommits = repo.Commits;
+      var commitsInSubtree = new List<Commit>();
+      if( SubtreeFilter == null ) {
+        commitsInSubtree = allCommits.ToList();
+      } else {
+        foreach( var commit in allCommits ) {
+          foreach( var item in commit.Tree ) {
+            if( item.Mode == Mode.Directory ) {
+              if( item.Path.StartsWith(SubtreeFilter) ) {
+                commitsInSubtree.Add(commit);
+                break;  
+              }
+            }
+          } 
+
+        }
       }
+      return commitsInSubtree.Select( commit => new GitLogEntry(commit) ).ToArray();  
     }
   }
 }

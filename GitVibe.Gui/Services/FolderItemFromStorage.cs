@@ -23,7 +23,9 @@ public class FolderItemFromStorage : FolderItem
   {
       _storageFolder = storageFolder;
   }
-
+  public override string FullPath { get  {
+    return _storageFolder.Path.LocalPath; 
+  } }
   public async Task LoadChildrenAsync()
   {
     await foreach (var item in _storageFolder.GetItemsAsync())

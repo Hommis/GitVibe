@@ -33,7 +33,11 @@
             </MenuItem>
         </Menu>
           
-        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FolderTree}">
+        <TreeView Grid.Row="1" Grid.Column="0" 
+          ItemsSource="{Binding FolderTree}"
+          SelectionMode="Single"
+          SelectedItem="{Binding SelectedSubDirectory}"
+          >
             <TreeView.ItemTemplate>
                 <TreeDataTemplate  ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
@@ -44,28 +48,28 @@
             </TreeView.ItemTemplate>
         </TreeView>
         <GridSplitter Grid.Row="1" Grid.Column="1" Background="DarkGray" ResizeDirection="Columns"/>
-        <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch">
-          <DataGrid Margin="20" ItemsSource="{Binding GitLog}" 
-                  AutoGenerateColumns="False" IsReadOnly="True" 
-                  GridLinesVisibility="All"
-                  BorderThickness="1" 
-                  BorderBrush="Gray"
-                  CanUserReorderColumns="true"
-                  CanUserSortColumns="false"
-                  CanUserResizeColumns="true">
-              <DataGrid.Columns>
-                  <DataGridTextColumn Header="Message" Binding="{Binding Message}" />
-                  <DataGridTextColumn Header="Author" Binding="{Binding Author}" />
-                  <DataGridTemplateColumn Header="Commit date">
-                    <DataGridTemplateColumn.CellTemplate>
-                      <DataTemplate>
-                          <TextBlock Text="{Binding CreateDate, StringFormat=g}" />
-                      </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-              
-                  </DataGridTemplateColumn>
-              </DataGrid.Columns>
-          </DataGrid>
-        </StackPanel>  
+
+        <DataGrid Grid.Row="1" Grid.Column="2" Margin="20" ItemsSource="{Binding GitLog}" 
+                AutoGenerateColumns="False" IsReadOnly="True" 
+                GridLinesVisibility="All"
+                BorderThickness="1" 
+                BorderBrush="Gray"
+                CanUserReorderColumns="true"
+                CanUserSortColumns="false"
+                CanUserResizeColumns="true"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" />
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" />
+                <DataGridTemplateColumn Header="Commit date">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding CreateDate, StringFormat=g}" />
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

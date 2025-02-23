@@ -16,13 +16,15 @@ public class FolderItem
       }   
     }
 
-    public FolderItem(string name) : this()
+    public FolderItem(string name, string fullPath) : this()
     {
         Name = name;
-      
+        FullPath = fullPath;      
     }
     protected FolderItem() {
 
       Name = "Undefined";
+      FullPath = "/";
     }
+    public virtual string FullPath { get ;private set;}
 }

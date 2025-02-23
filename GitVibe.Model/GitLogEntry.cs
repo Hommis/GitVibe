@@ -11,7 +11,7 @@ public class GitLogEntry
     public DateTime CreateDate { get; set; }
     public GitLogEntry(Commit entry )
     {
-        Message = entry.Message;
+        Message = entry.MessageShort;
         Author = $"{entry.Author.Name} <{entry.Author.Email}>" ;
         CreateDate = entry.Author.When.DateTime;
     }

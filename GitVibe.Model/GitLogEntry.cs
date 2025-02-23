@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
 using LibGit2Sharp;
 
@@ -8,20 +9,25 @@ public class GitLogEntry
 {
     public string Message { get; set; }
     public string Author { get; set; }
-    public DateTime CreateDate { get; set; }
-    public string ShortHash { get ; set;}
-    public string ParentShortHash { get ; set;}
-    public string Graph {
-      get {
-        return "M 0,0 L 0,20 L 2,20 L 2,0 Z";
+    public DateTime CommitDate { get; set; }
+    public string ShortHash { get { return Hash.Substring(0,7); } }
+    public ImmutableArray<string> Branches { get; set; } = ImmutableArray<string>.Empty;
+    public string? ParentShortHash { 
+      get { 
+        if( ParentHash == null ) {
+          return null;
+        }
+        return ParentHash.Substring(0,7); 
       }
-    }
+    } 
+    public string Hash { get; set;}
+    public string? ParentHash { get; set; }  
     public GitLogEntry(Commit entry )
     {
         Message = entry.MessageShort;
         Author = $"{entry.Author.Name} <{entry.Author.Email}>" ;
-        CreateDate = entry.Author.When.DateTime;
-        ShortHash = entry.Sha.Substring(0,7);
-        ParentShortHash = entry.Parents.FirstOrDefault()?.Sha.Substring(0,7) ?? "Not found";
+        CommitDate = entry.Author.When.DateTime;
+        Hash = entry.Sha;
+        ParentHash = entry.Parents.FirstOrDefault()?.Sha ?? null;
     }
 }

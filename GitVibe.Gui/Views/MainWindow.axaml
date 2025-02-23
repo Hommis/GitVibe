@@ -73,7 +73,7 @@
                 <DataGridTemplateColumn Header="Time">
                   <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding CreateDate, StringFormat=g}" />
+                        <TextBlock Text="{Binding CommitDate, StringFormat=g}" />
                     </DataTemplate>
                   </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

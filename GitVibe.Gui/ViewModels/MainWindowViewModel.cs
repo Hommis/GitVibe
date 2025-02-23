@@ -39,7 +39,6 @@ public partial class MainWindowViewModel : ViewModelBase
     SelectedRepository = GitRepository.FromPath(folder.Path.LocalPath);
     RefreshGitLog();
     var folderViewModel = new FolderViewModel(folderItem);
-
     FolderTree.Add(folderViewModel);
   }
 

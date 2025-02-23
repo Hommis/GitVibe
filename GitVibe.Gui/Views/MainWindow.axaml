@@ -3,7 +3,7 @@
         xmlns:vm="using:GitVibe.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:h="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls"
+        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GitVibe.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -34,9 +34,12 @@
         
         <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FolderTree}">
             <TreeView.ItemTemplate>
-                <TreeDataTemplate ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name}" />
-                </TreeDataTemplate>
+                <TreeDataTemplate  ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialIcons:MaterialIcon Kind="Folder" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </TreeDataTemplate >
             </TreeView.ItemTemplate>
         </TreeView>
         

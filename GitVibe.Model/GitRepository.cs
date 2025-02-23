@@ -24,8 +24,10 @@ public class GitRepository : Repository
       return new Repository(path) ;
     }
   }
+
   public override IEnumerable<GitLogEntry> GetHistory()
   {
+
     using (var repo = new LibGit2Sharp.Repository(base.Path))
     { 
       var allCommits = repo.Commits;
@@ -33,16 +35,12 @@ public class GitRepository : Repository
       if( SubtreeFilter == null ) {
         commitsInSubtree = allCommits.ToList();
       } else {
+        string[] filterParts = SubtreeFilter.Split('/');        
+        
         foreach( var commit in allCommits ) {
-          foreach( var item in commit.Tree ) {
-            if( item.Mode == Mode.Directory ) {
-              if( item.Path.StartsWith(SubtreeFilter) ) {
-                commitsInSubtree.Add(commit);
-                break;  
-              }
-            }
-          } 
-
+          if( commit.Tree[ SubtreeFilter ] != null ) {
+            commitsInSubtree.Add(commit);
+          }
         }
       }
       return commitsInSubtree.Select( commit => new GitLogEntry(commit) ).ToArray();  

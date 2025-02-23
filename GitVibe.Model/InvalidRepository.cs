@@ -33,7 +33,8 @@ public class Repository
     }
 
     // Set SubtreeFilter to the relative path from the repository path
-    SubtreeFilter = fullPath.Substring(Path.Length).Trim(System.IO.Path.DirectorySeparatorChar);
+    SubtreeFilter = fullPath.Substring(Path.Length).Trim(System.IO.Path.DirectorySeparatorChar).Replace(System.IO.Path.DirectorySeparatorChar, '/');
+    
     if( SubtreeFilter.Trim() =="" ) {
       SubtreeFilter = null;
     }

@@ -8,7 +8,7 @@ using DynamicData;
 using GitVibe.ViewModels;
 using Splat;
 
-namespace GitVibe.Gui.ViewModels;
+namespace GitVibe.Gui.Services;
 
 public class FolderViewModel
 {
@@ -27,5 +27,6 @@ public class FolderViewModel
   public FolderViewModel(FolderItem folderItem)
   {
     _folderItem = folderItem;
+
   }
 }

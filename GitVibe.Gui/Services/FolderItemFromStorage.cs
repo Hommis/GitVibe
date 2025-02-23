@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using GitVibe.ViewModels;
 
-namespace GitVibe.Gui.ViewModels;
+namespace GitVibe.Gui.Services;
 
 public class FolderItemFromStorage : FolderItem
 {

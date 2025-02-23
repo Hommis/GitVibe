@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace GitVibe.ViewModels;
+namespace GitVibe.Model;
 
 public class FolderItem
 {

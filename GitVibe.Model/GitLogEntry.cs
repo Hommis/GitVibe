@@ -1,6 +1,6 @@
 using System;
 
-namespace GitVibe.Gui.ViewModels;
+namespace GitVibe.Model;
 
 public class GitLogEntry
 {

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
 using System.Collections.ObjectModel;
-using GitVibe.Gui.ViewModels;
+using GitVibe.Model;
 
 namespace GitVibe.ViewModels;
 

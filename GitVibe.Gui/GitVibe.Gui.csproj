@@ -26,4 +26,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
     <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVibe.Model\GitVibe.Model.csproj" />
+  </ItemGroup>
 </Project>

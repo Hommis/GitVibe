@@ -17,12 +17,22 @@
     </Design.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" /> 
         </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Folder">
+                <MenuItem Header="Open folder..." Command="{Binding OpenFolderCommand}"/>
+            </MenuItem>
+        </Menu>
         
-        <TreeView Grid.Column="0" ItemsSource="{Binding FolderTree}">
+        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FolderTree}">
             <TreeView.ItemTemplate>
                 <TreeDataTemplate ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding Name}" />
@@ -30,7 +40,7 @@
             </TreeView.ItemTemplate>
         </TreeView>
         
-        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">
             <Border BorderBrush="Red" BorderThickness="1">
                 <DataGrid Margin="20" ItemsSource="{Binding GitLog}" 
                         AutoGenerateColumns="False" IsReadOnly="True" 

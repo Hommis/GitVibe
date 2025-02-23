@@ -1,21 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using GitVibe.Model;
 using LibGit2Sharp;
 namespace GitVibe.Model;
 
-public class GitRepository : Repository
+public class GitRepository : Repository, IDisposable
 {
   public override bool IsValid { get {return true;} }
-
+  protected LibGit2Sharp.Repository Repository { get; private set; }
   protected GitRepository(string path) :base(path)
-  {
-
-      if( !LibGit2Sharp.Repository.IsValid(path) )
+  {   if( !LibGit2Sharp.Repository.IsValid(path) )
       {
         throw new ArgumentException("Invalid repository path");
       }
+      Repository = new LibGit2Sharp.Repository(base.Path);
+
   }
   public static Repository FromPath( string path ) {
     if(LibGit2Sharp.Repository.IsValid(path) ) {
@@ -28,22 +24,24 @@ public class GitRepository : Repository
   public override IEnumerable<GitLogEntry> GetHistory()
   {
 
-    using (var repo = new LibGit2Sharp.Repository(base.Path))
-    { 
-      var allCommits = repo.Commits;
-      var commitsInSubtree = new List<Commit>();
+      IEnumerable<Commit> commitsInSubtree;
       if( SubtreeFilter == null ) {
-        commitsInSubtree = allCommits.ToList();
-      } else {
-        string[] filterParts = SubtreeFilter.Split('/');        
-        
-        foreach( var commit in allCommits ) {
-          if( commit.Tree[ SubtreeFilter ] != null ) {
-            commitsInSubtree.Add(commit);
-          }
-        }
+        commitsInSubtree = Repository.Commits;
+      } else
+      {
+        commitsInSubtree = GetAllCommitsInSubtree();
       }
       return commitsInSubtree.Select( commit => new GitLogEntry(commit) ).ToArray();  
-    }
+
+  }
+
+  private IEnumerable<Commit> GetAllCommitsInSubtree( )
+  {
+    return Repository.Commits.Where( commit => commit.Tree[SubtreeFilter] != null );
+  }
+
+  public void Dispose()
+  {
+    Repository.Dispose();
   }
 }

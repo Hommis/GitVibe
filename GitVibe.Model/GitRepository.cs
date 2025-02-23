@@ -27,6 +27,7 @@ public class GitRepository : Repository, IDisposable
       IEnumerable<Commit> commitsInSubtree;
       if( SubtreeFilter == null ) {
         commitsInSubtree = Repository.Commits;
+        
       } else
       {
         commitsInSubtree = GetAllCommitsInSubtree();

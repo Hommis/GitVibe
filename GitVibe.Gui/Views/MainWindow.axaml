@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:cc="clr-namespace:GitVibe.Gui.Controls;assembly=GitVibe.Gui"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GitVibe.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -60,15 +61,24 @@
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Stretch">
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Graph">
+                  <DataGridTemplateColumn.CellTemplate >
+                    <DataTemplate>
+                      <cc:GitCommitGraph Data="{Binding}" />
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Message" Binding="{Binding Message}" />
                 <DataGridTextColumn Header="Author" Binding="{Binding Author}" />
-                <DataGridTemplateColumn Header="Commit date">
+                <DataGridTemplateColumn Header="Time">
                   <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding CreateDate, StringFormat=g}" />
                     </DataTemplate>
                   </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Commit" Binding="{Binding ShortHash}" />
+                <DataGridTextColumn Header="Parent" Binding="{Binding ParentShortHash}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

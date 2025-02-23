@@ -11,7 +11,7 @@ public class GitLogEntry
     public string Author { get; set; }
     public DateTime CommitDate { get; set; }
     public string ShortHash { get { return Hash.Substring(0,7); } }
-    public ImmutableArray<string> Branches { get; set; } = ImmutableArray<string>.Empty;
+    public ImmutableArray<BranchInfo> Branches { get; set; } = ImmutableArray<BranchInfo>.Empty;
     public string? ParentShortHash { 
       get { 
         if( ParentHash == null ) {

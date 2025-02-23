@@ -46,17 +46,26 @@ public class GitRepository : Repository, IDisposable
     foreach( var commit in oldToNew ) {
       lookUpTable.Add(commit.Hash, commit);
     }
-    var branches = new Dictionary<string, string>();
+    var branches = new Dictionary<string, BranchInfo>();
     foreach( var commit in oldToNew ) {
+      // Resetting all branches to not new.
+      foreach(var branchKey in branches.Keys ) {
+        var parentMatchers =  branchKey == commit.ParentHash; 
+        branches[ branchKey] = new BranchInfo(false, false, parentMatchers, false);
+      }
       if( commit.ParentHash != null  && branches.ContainsKey(commit.ParentHash) ) {
-        // If we can find the parent branch from the collection of branches, we don't need a new branch
-        branches[commit.ParentHash] = commit.Hash;  
+        // If we can find the parent branch, we need to update it
+        var parentBranch = branches[commit.ParentHash];
+        branches.Remove( commit.ParentHash);
+        branches.Add( commit.Hash, new BranchInfo(false, false, false, false) );
       }
       else {
         // If we can't find the parent branch, we need to create a new branch
-        branches.Add(commit.Hash, commit.Hash);
+        var missingParent =  commit.ParentHash != null && !lookUpTable.ContainsKey( commit.ParentHash);
+        branches.Add(commit.Hash, new BranchInfo(true, false, true, missingParent));
       }
-      commit.Branches = branches.Keys.ToImmutableArray();
+
+      commit.Branches = branches.Values.ToImmutableArray();
       returnArray.Add(commit);
     }
     return returnArray;
@@ -71,4 +80,5 @@ public class GitRepository : Repository, IDisposable
   {
     Repository.Dispose();
   }
+
 }

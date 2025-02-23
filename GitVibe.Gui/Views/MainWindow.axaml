@@ -15,6 +15,18 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    <StackPanel HorizontalAlignment="Stretch">
+        <Border BorderBrush="Red" BorderThickness="1">
+            <DataGrid Margin="20" ItemsSource="{Binding GitLog}" 
+                    AutoGenerateColumns="False" IsReadOnly="True" 
+                    GridLinesVisibility="All"
+                    BorderThickness="1" BorderBrush="Gray" Height="300">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" />
+                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </StackPanel>
 </Window>

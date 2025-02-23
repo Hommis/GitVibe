@@ -11,5 +11,18 @@ public partial class MainWindowViewModel : ViewModelBase
         new GitLogEntry("Initial commit", "John Doe"),
         new GitLogEntry("Add feature", "Jane Doe"),
     };
+
     public string Greeting { get; } = "Welcome to Avalonia!";
+
+    public ObservableCollection<FolderItem> FolderTree { get; } = new()
+    {
+        new FolderItem("Root")
+        {
+            Children = new ObservableCollection<FolderItem>
+            {
+                new FolderItem("Folder 1"),
+                new FolderItem("Folder 2")
+            }
+        }
+    };
 }

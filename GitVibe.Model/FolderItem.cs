@@ -4,6 +4,7 @@ namespace GitVibe.ViewModels;
 
 public class FolderItem
 {
+  
     public virtual string Name { get; protected set; }
     private ObservableCollection<FolderItem> _children;
     public virtual ObservableCollection<FolderItem> Children { get {

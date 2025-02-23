@@ -17,7 +17,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public string Greeting { get; } = "Welcome to Avalonia!";
 
-    public ObservableCollection<FolderItem> FolderTree { get; } = new()
+    public ObservableCollection<FolderViewModel> FolderTree { get; } = new()
     {
 
     };
@@ -35,6 +35,6 @@ public partial class MainWindowViewModel : ViewModelBase
         SelectedFolder = folder;
         var folderItem = new FolderItemFromStorage(folder);
         FolderTree.Clear();
-        FolderTree.Add(folderItem);
+        FolderTree.Add(new FolderViewModel( folderItem ));
     }
 }

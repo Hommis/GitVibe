@@ -1,15 +1,26 @@
 using System.Collections.ObjectModel;
 
-namespace GitVibe.Model;
+namespace GitVibe.ViewModels;
 
 public class FolderItem
 {
-    public string Name { get; set; }
-    public ObservableCollection<FolderItem> Children { get; set; }
+    public virtual string Name { get; protected set; }
+    private ObservableCollection<FolderItem> _children;
+    public virtual ObservableCollection<FolderItem> Children { get {
+      if (_children == null) {
+        _children = new ObservableCollection<FolderItem>();
+      }
+      return _children;
+    } 
+    }
 
-    public FolderItem(string name)
+    public FolderItem(string name) : this()
     {
         Name = name;
-        Children = new ObservableCollection<FolderItem>();
+      
+    }
+    protected FolderItem() {
+
+      Name = "Undefined";
     }
 }

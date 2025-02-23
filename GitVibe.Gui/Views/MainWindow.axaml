@@ -27,8 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Header="Folder">
-                <MenuItem Header="Open folder..." Command="{Binding OpenFolderCommand}"/>
+            <MenuItem Header="Repository">
+                <MenuItem Header="Open from folder..." Command="{Binding OpenFolderCommand}"/>
             </MenuItem>
         </Menu>
         

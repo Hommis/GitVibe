@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Net.Http.Headers;
 using LibGit2Sharp;
 namespace GitVibe.Model;
 
@@ -36,10 +37,12 @@ public class GitRepository : Repository, IDisposable
       return ParseCommitsForGraph( commitsInSubtree.Select( commit => new GitLogEntry(commit) ) );
 
   }
-
+  private Dictionary<string,Branch> branchesSearchTable = new Dictionary<string, Branch>();
+  private List<Branch> uniqueBranchesList = new List<Branch>();  
+  private int branchIdGenerator = 0 ;
   private IEnumerable<GitLogEntry> ParseCommitsForGraph(IEnumerable<GitLogEntry> commits)
   {
-    var branchIdGenerator = 0 ;
+
     var returnArray = new List<GitLogEntry>();;
     var oldToNew = commits.OrderBy( commit => commit.CommitDate );
     // Create a lookup table for the commits
@@ -47,41 +50,67 @@ public class GitRepository : Repository, IDisposable
     foreach( var commit in oldToNew ) {
       lookUpTable.Add(commit.Hash, commit);
     }
-    var branches = new Dictionary<string, BranchInfo>();
+
+
     foreach( var commit in oldToNew ) {
-
-      // Resetting all branches to not new.
-      foreach(var branchKey in branches.Keys.ToArray() ) {
-        var parentMatches =  commit.Parents.Any( parentHash => parentHash == branchKey) ; 
-        branches[ branchKey] = new BranchInfo( branches[ branchKey].Id, false, false, parentMatches, false, branches[ branchKey].IsMered);
+      // Mark all branches as not new
+      foreach( var branch in uniqueBranchesList ) {
+        branch.IsNew = false;
+      }      
+      // It is a completely new branch
+      if( commit.Parents.Length == 0 ) {
+        var branch = FindOrCreateBranch(commit);
       }
-      var isMerged = false;
-      var missingParent = true;
-      foreach( var parentHash in commit.Parents ) {
-        if( branches.ContainsKey(parentHash) ) {
-          // If we can find the parent branch, we need to update it
-          var parentBranch = branches[parentHash];
-          missingParent = !lookUpTable.ContainsKey( parentHash);
-          branches.Remove( parentHash);
-          if( !isMerged) branches.Add(commit.Hash, new BranchInfo(parentBranch.Id, true, false, true, missingParent, isMerged ));
-          isMerged = true;
-        } else {
+      foreach( var parentHash in commit.Parents )
+      {
+        var parent = lookUpTable[parentHash];
+        // Look for existing branch
+        FindOrCreateBranch(parent);
+      }
 
-        branches.Add(commit.Hash, new BranchInfo(branchIdGenerator++, true, false, true, missingParent, false));
+      // This is a merge commit
+      if ( commit.Parents.Length > 1 )  {
+        foreach( var parentHash in commit.Parents ) {
+          var parent = lookUpTable[parentHash];
+          var branch = FindOrCreateBranch(parent);
+          branch.IsMerged = true;
         }
       }
-      if( commit.Parents.Length > 0  && branches.ContainsKey(commit.ParentHash) ) {
-        // If we can find the parent branch, we need to update it
-        var parentBranch = branches[commit.ParentHash];
-        branches.Remove( commit.ParentHash);
-        branches.Add( commit.Hash, new BranchInfo(parentBranch.Id, false, false, false, false) );
+      foreach( var branch in uniqueBranchesList ) {
+        var isParentOfThis = false;
+        foreach( var parentHash in commit.Parents ) {
+          if( branch.Commits.ContainsKey(parentHash) ) {
+            isParentOfThis = true;
+            break;
+          }
+        }
+        var isCurrent = branch.Commits.ContainsKey(commit.Hash);
+        commit.Branches.Add( new BranchInfo( branch, isParentOfThis, isCurrent ) );
+
       }
-
-
-      commit.Branches = branches.Values.ToImmutableArray();
       returnArray.Add(commit);
     }
+
     return returnArray;
+  }
+
+  private Branch FindOrCreateBranch(GitLogEntry commit)
+  {
+    if (branchesSearchTable.ContainsKey(commit.Hash))
+    {
+      var branch = branchesSearchTable[commit.Hash];
+      branch.RegisterCommit( commit );
+      return branch;
+    }
+    else
+    {
+      var newBranch = new Branch(branchIdGenerator++);
+      newBranch.RegisterCommit( commit );
+      branchesSearchTable.Add(commit.Hash, newBranch);
+      uniqueBranchesList.Add(branchesSearchTable[commit.Hash]);
+      newBranch.IsNew = true; 
+      return newBranch;
+    }
   }
 
   private IEnumerable<Commit> GetAllCommitsInSubtree( )

@@ -31,7 +31,7 @@ namespace GitVibe.Gui.Controls;
             var pen = new Pen(Brushes.RoyalBlue, 3);
 
 
-            if( branch.ParentIsNotFound) {
+            if( branch.ParentIsMissing) {
               var redPen = new Pen(Brushes.Red, 3); 
               context.DrawLine(redPen , new Point(x,5), new Point(x, renderSize.Height / 2));
               context.DrawEllipse(Brushes.White, redPen, new Point( x, 6 ), 5,5 );

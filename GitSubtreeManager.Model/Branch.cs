@@ -1,4 +1,4 @@
-using GitVibe.Model;
+using GitSubtreeManager.Model;
 using LibGit2Sharp;
 
 public class Branch {

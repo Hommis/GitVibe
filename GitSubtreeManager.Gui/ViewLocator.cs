@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using GitVibe.ViewModels;
+using GitSubtreeManager.Gui.ViewModels;
 
-namespace GitVibe;
+namespace GitSubtreeManager.Gui;
 
 public class ViewLocator : IDataTemplate
 {

@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
 using LibGit2Sharp;
 
-namespace GitVibe.Model;
+namespace GitSubtreeManager.Model;
 
 public class GitLogEntry
 {

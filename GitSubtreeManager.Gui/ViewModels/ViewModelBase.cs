@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using ReactiveUI;
 
-namespace GitVibe.ViewModels;
+namespace GitSubtreeManager.Gui.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {

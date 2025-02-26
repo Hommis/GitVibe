@@ -6,10 +6,10 @@ using System.Windows.Input;
 using Avalonia;
 using Avalonia.Platform;
 using DynamicData;
-using GitVibe.ViewModels;
+using GitSubtreeManager.Model;
 using Splat;
 
-namespace GitVibe.Gui.Services;
+namespace GitSubtreeManager.Gui.Services;
 
 public class FolderViewModel
 {

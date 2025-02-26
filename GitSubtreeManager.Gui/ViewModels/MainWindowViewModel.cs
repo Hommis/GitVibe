@@ -2,13 +2,13 @@
 using System.Windows.Input;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
-using GitVibe.Model;
-using GitVibe.Gui.Services;
+using GitSubtreeManager.Model;
+using GitSubtreeManager.Gui.Services;
 using System;
 using System.Reactive.Linq;
-using System.Linq;
+
 using ReactiveUI.SourceGenerators;
-namespace GitVibe.ViewModels;
+namespace GitSubtreeManager.Gui.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {

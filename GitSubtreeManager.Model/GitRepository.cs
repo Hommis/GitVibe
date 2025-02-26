@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using System.Net.Http.Headers;
 using LibGit2Sharp;
-namespace GitVibe.Model;
+namespace GitSubtreeManager.Model;
 
 public class GitRepository : Repository, IDisposable
 {

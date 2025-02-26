@@ -1,6 +1,6 @@
 using System;
 
-namespace GitVibe.Model;
+namespace GitSubtreeManager.Model;
 
 public class Repository 
 {

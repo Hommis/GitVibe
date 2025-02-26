@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
-using GitVibe.ViewModels;
+using GitSubtreeManager.Model;
 
-namespace GitVibe.Gui.Services;
+namespace GitSubtreeManager.Gui.Services;
 
 public class FolderItemFromStorage : FolderItem
 {

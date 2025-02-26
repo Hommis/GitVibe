@@ -2,9 +2,9 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using GitVibe.Model;
+using GitSubtreeManager.Model;
 
-namespace GitVibe.Gui.Controls;
+namespace GitSubtreeManager.Gui.Controls;
 
     public class GitCommitGraph : Control
     {

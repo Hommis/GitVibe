@@ -34,6 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GitVibe.Model\GitVibe.Model.csproj" />
+    <ProjectReference Include="..\GitSubtreeManager.Model\GitSubtreeManager.Model.csproj" />
   </ItemGroup>
 </Project>

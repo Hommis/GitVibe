@@ -1,15 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:GitVibe.ViewModels"
+        xmlns:vm="using:GitSubtreeManager.Model"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        xmlns:cc="clr-namespace:GitVibe.Gui.Controls;assembly=GitVibe.Gui"
+        xmlns:cc="clr-namespace:GitSubtreeManager.Gui.Controls;assembly=GitSubtreeManager.Gui"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="GitVibe.Views.MainWindow"
+        x:Class="GitSubtreeManager.Gui.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="GitVibe">
+        Title="Git Subtree Manager" >
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,

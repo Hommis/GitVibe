@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
-namespace GitVibe;
+namespace GitSubtreeManager.Gui;
 
 sealed class Program
 {

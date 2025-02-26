@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSubtreeManager.Gui", "Gi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSubtreeManager.Model", "GitSubtreeManager.Model\GitSubtreeManager.Model.csproj", "{0571ADD3-CB9C-4E41-B7AC-CF5B0400BE2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSubtreeManager.CLI", "GitSubtreeManager.CLI\GitSubtreeManager.CLI.csproj", "{21740F79-608F-4CFE-A112-C50785335428}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{0571ADD3-CB9C-4E41-B7AC-CF5B0400BE2E}.Release|x64.Build.0 = Release|Any CPU
 		{0571ADD3-CB9C-4E41-B7AC-CF5B0400BE2E}.Release|x86.ActiveCfg = Release|Any CPU
 		{0571ADD3-CB9C-4E41-B7AC-CF5B0400BE2E}.Release|x86.Build.0 = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|x64.Build.0 = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Debug|x86.Build.0 = Debug|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|x64.ActiveCfg = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|x64.Build.0 = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|x86.ActiveCfg = Release|Any CPU
+		{21740F79-608F-4CFE-A112-C50785335428}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
